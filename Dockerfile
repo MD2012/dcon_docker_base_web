@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y mongodb-org
 RUN mkdir -p /data/db
 
 # Set usr/bin/mongod as the dockerized entry-point application
-ENTRYPOINT usr/bin/mongod
+# ENTRYPOINT usr/bin/mongod
 
 # install meteor
 #RUN curl https://install.meteor.com | /bin/sh
