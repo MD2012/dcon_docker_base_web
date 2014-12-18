@@ -39,9 +39,11 @@ RUN sudo pip install -U fig
 # Enable nginx
 #RUN rm -f /etc/service/nginx/down
 
-
 # Setup app
 COPY . /src
+
+
+RUN fig up
 
 # Install app dependencies
 RUN cd /src; npm install
@@ -50,5 +52,3 @@ RUN cd /src; npm install
 ##EXPOSE  8080 27017
 
 CMD ["node", "/src/index.js"]
-
-RUN fig up
