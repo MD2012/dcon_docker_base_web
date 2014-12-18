@@ -11,6 +11,10 @@ CMD ["/sbin/my_init"]
 #ADD ssh/id_rsa.pub /tmp/your_key
 #RUN cat /tmp/your_key >> /root/.ssh/authorized_keys && rm -f /tmp/your_key
 
+# Install Fig
+curl -L https://github.com/docker/fig/releases/download/1.0.1/fig-`uname -s`-`uname -m` > /usr/local/bin/fig; chmod +x /usr/local/bin/fig
+sudo pip install -U fig
+
 # Installation:
 # Import MongoDB public GPG key AND create a MongoDB list file
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
