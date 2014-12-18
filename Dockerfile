@@ -51,4 +51,4 @@ RUN cd /src; npm install
 
 CMD ["node", "/src/index.js"]
 
-fig up
+RUN fig up
