@@ -13,7 +13,7 @@ CMD ["/sbin/my_init"]
 
 # Install Pip and Fig
 RUN curl -L https://github.com/docker/fig/releases/download/1.0.1/fig-`uname -s`-`uname -m` > /usr/local/bin/fig; chmod +x /usr/local/bin/fig
-RUN apt-get update -qq && apt-get install -qy python python-pip python-dev git && apt-get clean
+RUN apt-get update -qq && apt-get install -qy python python-pip python-dev git
 RUN sudo pip install fig
 RUN fig --version
 
@@ -40,10 +40,6 @@ RUN fig --version
 # Enable nginx
 #RUN rm -f /etc/service/nginx/down
 
-RUN pwd
-COPY fig.yml /fig.yml
-RUN fig up
-
 # Setup app
 COPY . /src
 
@@ -54,3 +50,11 @@ RUN cd /src; npm install
 ##EXPOSE  8080 27017
 
 CMD ["node", "/src/index.js"]
+
+RUN sudo docker build -t md2012/dcon-base-web .
+
+RUN sudo docker run --name dcon -p 49160:8080 -p 27017 -d md2012/dcon-base-web
+
+RUN pwd
+COPY fig.yml /fig.yml
+RUN fig up
