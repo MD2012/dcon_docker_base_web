@@ -7,14 +7,26 @@ ENV HOME /root
 # Use baseimage-docker's init process.
 CMD ["/sbin/my_init"]
 
-# Enable EPEL for Node.js
-# RUN     rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-# Install Node.js and npm
-# RUN     yum install -y npm
-
 # ssh
 #ADD ssh/id_rsa.pub /tmp/your_key
 #RUN cat /tmp/your_key >> /root/.ssh/authorized_keys && rm -f /tmp/your_key
+
+# Installation:
+# Import MongoDB public GPG key AND create a MongoDB list file
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+RUN echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/10gen.list
+
+# Update apt-get sources AND install MongoDB
+RUN apt-get update && apt-get install -y mongodb-org
+
+# Create the MongoDB data directory
+RUN mkdir -p /data/db
+
+# Expose port 27017 from the container to the host
+EXPOSE 27017
+
+# Set usr/bin/mongod as the dockerized entry-point application
+# ENTRYPOINT usr/bin/mongod
 
 # install meteor
 #RUN curl https://install.meteor.com | /bin/sh
