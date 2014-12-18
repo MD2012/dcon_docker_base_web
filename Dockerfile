@@ -51,8 +51,6 @@ RUN cd /src; npm install
 
 CMD ["node", "/src/index.js"]
 
-RUN sudo docker build -t md2012/dcon-base-web .
-
 RUN sudo docker run --name dcon -p 49160:8080 -p 27017 -d md2012/dcon-base-web
 
 RUN pwd
