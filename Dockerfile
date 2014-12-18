@@ -41,6 +41,7 @@ RUN fig --version
 #RUN rm -f /etc/service/nginx/down
 
 RUN pwd
+COPY fig.yml /fig.yml
 RUN fig up
 
 # Setup app
