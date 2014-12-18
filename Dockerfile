@@ -13,7 +13,8 @@ CMD ["/sbin/my_init"]
 
 # Install Fig
 RUN curl -L https://github.com/docker/fig/releases/download/1.0.1/fig-`uname -s`-`uname -m` > /usr/local/bin/fig; chmod +x /usr/local/bin/fig
-#RUN sudo pip install -U fig
+RUN sudo apt-get install -y python-pip
+RUN sudo pip install -U fig
 
 # Installation:
 # Import MongoDB public GPG key AND create a MongoDB list file
