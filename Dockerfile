@@ -25,6 +25,7 @@ CMD ["/sbin/my_init"]
 # Enable nginx
 #RUN rm -f /etc/service/nginx/down
 
+
 # Setup app
 COPY . /src
 
