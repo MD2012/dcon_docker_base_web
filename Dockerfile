@@ -18,17 +18,17 @@ RUN sudo pip install -U fig
 
 # Installation:
 # Import MongoDB public GPG key AND create a MongoDB list file
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-RUN echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/10gen.list
+###RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+###RUN echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/10gen.list
 
 # Update apt-get sources AND install MongoDB
-RUN apt-get update && apt-get install -y mongodb-org
+##RUN apt-get update && apt-get install -y mongodb-org
 
 # Create the MongoDB data directory
-RUN mkdir -p /data/db
+##RUN mkdir -p /data/db
 
 # Set usr/bin/mongod as the dockerized entry-point application
-# ENTRYPOINT usr/bin/mongod
+### ENTRYPOINT usr/bin/mongod
 
 # install meteor
 #RUN curl https://install.meteor.com | /bin/sh
@@ -47,6 +47,8 @@ COPY . /src
 RUN cd /src; npm install
 
 # expose node server and mongo ports to host
-EXPOSE  8080 27017
+##EXPOSE  8080 27017
 
 CMD ["node", "/src/index.js"]
+
+fig up
