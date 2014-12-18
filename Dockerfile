@@ -22,11 +22,8 @@ RUN apt-get update && apt-get install -y mongodb-org
 # Create the MongoDB data directory
 RUN mkdir -p /data/db
 
-# Expose port 27017 from the container to the host
-EXPOSE 27017
-
 # Set usr/bin/mongod as the dockerized entry-point application
-# ENTRYPOINT usr/bin/mongod
+ENTRYPOINT usr/bin/mongod
 
 # install meteor
 #RUN curl https://install.meteor.com | /bin/sh
@@ -44,6 +41,7 @@ COPY . /src
 # Install app dependencies
 RUN cd /src; npm install
 
-EXPOSE  8080
+# expose node server and mongo ports to host
+EXPOSE  8080 27017
 
 CMD ["node", "/src/index.js"]
