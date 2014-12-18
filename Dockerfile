@@ -39,11 +39,10 @@ RUN sudo pip install -U fig
 # Enable nginx
 #RUN rm -f /etc/service/nginx/down
 
+RUN fig up
+
 # Setup app
 COPY . /src
-
-
-RUN fig up
 
 # Install app dependencies
 RUN cd /src; npm install
