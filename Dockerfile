@@ -11,7 +11,7 @@ FROM phusion/passenger-full:latest
 #FROM phusion/passenger-customizable:<VERSION>
 
 # Set correct environment variables.
-ENV HOME /
+ENV HOME /home/core
 
 # Use baseimage-docker's init process.
 CMD ["/sbin/my_init"]
