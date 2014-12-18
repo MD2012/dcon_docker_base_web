@@ -40,6 +40,7 @@ RUN fig --version
 # Enable nginx
 #RUN rm -f /etc/service/nginx/down
 
+RUN pwd
 RUN fig up
 
 # Setup app
