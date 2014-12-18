@@ -2,16 +2,16 @@
 # sure you lock down to a specific version, not to `latest`!
 # See https://github.com/phusion/passenger-docker/blob/master/Changelog.md for
 # a list of version numbers.
-# FROM phusion/passenger-full:latest
+FROM phusion/passenger-full:latest
 # Or, instead of the 'full' variant, use one of these:
 #FROM phusion/passenger-ruby19:<VERSION>
 #FROM phusion/passenger-ruby20:<VERSION>
 #FROM phusion/passenger-ruby21:<VERSION>
-FROM phusion/passenger-nodejs:latest
+#FROM phusion/passenger-nodejs:latest
 #FROM phusion/passenger-customizable:<VERSION>
 
 # Set correct environment variables.
-ENV HOME /root
+ENV HOME /
 
 # Use baseimage-docker's init process.
 CMD ["/sbin/my_init"]
@@ -33,4 +33,4 @@ CMD ["/sbin/my_init"]
 # ...put your own build instructions here...
 
 # Clean up APT when done.
-#RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
