@@ -47,12 +47,12 @@ COPY . /src
 RUN cd /src; npm install
 
 # expose node server and mongo ports to host
-##EXPOSE  8080 27017
+EXPOSE  8080 27017
 
 CMD ["node", "/src/index.js"]
 
-RUN sudo docker run --name dcon -p 49160:8080 -p 27017 -d md2012/dcon-base-web
+#RUN sudo docker run --name dcon -p 49160:8080 -p 27017 -d md2012/dcon-base-web
 
-RUN pwd
-COPY fig.yml /fig.yml
-RUN fig up
+#RUN pwd
+#COPY fig.yml /fig.yml
+#RUN fig up
