@@ -14,6 +14,7 @@ if (cluster.isMaster) {
   // In this case its a HTTP server
 
   var app = require('express')();
+  app.set('port', process.env.PORT || 443);
 
   var http = require('http').Server(app);
   // for https proceed with:
@@ -34,7 +35,7 @@ if (cluster.isMaster) {
     });
   });
 
-  http.listen(443, function(){
+  http.listen(app.get('port'), function(){
     console.log('listening on *:443');
   });
 }
