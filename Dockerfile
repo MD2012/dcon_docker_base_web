@@ -65,6 +65,7 @@ EXPOSE  8080 27017
 
 CMD ["node", "/src/index.js"]
 CMD ["nginx", "-g", "daemon off;"]
+CMD service nginx start
 
 #RUN sudo docker run --name dcon -p 49160:8080 -p 27017 -d md2012/dcon-base-web
 
