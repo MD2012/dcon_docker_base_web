@@ -34,8 +34,8 @@ if (cluster.isMaster) {
     });
   });
 
-  http.listen(8080, function(){
-    console.log('listening on *:8080');
+  http.listen(49160, function(){
+    console.log('listening on *:49160');
   });
 }
 
