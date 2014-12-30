@@ -21,14 +21,14 @@ RUN fig --version
 RUN sudo npm install -g forever
 
 # Install NGINX
-RUN apt-get update
-RUN apt-get -y install nginx
+#RUN apt-get update
+#RUN apt-get -y install nginx
 # Replace the default configuration
-RUN rm -v /etc/nginx/nginx.conf
-ADD nginx.conf /etc/nginx/nginx.conf
+#RUN rm -v /etc/nginx/nginx.conf
+#ADD nginx.conf /etc/nginx/nginx.conf
 #RUN nano /etc/nginx/nginx.conf
 #RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-RUN mkdir /etc/nginx/ssl
+#RUN mkdir /etc/nginx/ssl
 #ADD default /etc/nginx/sites-available/default
 
 # Installation:
@@ -63,7 +63,7 @@ RUN cd /src; npm install
 # expose node server and mongo ports to host
 EXPOSE  8080 27017
 
-CMD service nginx start
+#CMD service nginx start
 CMD ["node", "/src/index.js"]
 #CMD ["nginx", "-g", "daemon off;"]
 
