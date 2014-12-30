@@ -1,6 +1,27 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
 
+var app = require('express')();
+app.set('port', process.env.PORT || 443);
+
+var http = require('http').Server(app);
+// for https proceed with:
+// https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs
+// openssl.org
+// startssl.com
+// https://shaaaaaaaaaaaaa.com/
+
+//var io = require('socket.io')(http);
+
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
+
+http.listen(app.get('port'), function(){
+  console.log('listening on *:443');
+});
+
+/*
 if (cluster.isMaster) {
   // Fork workers.
   for (var i = 0; i < numCPUs; i++) {
@@ -39,4 +60,5 @@ if (cluster.isMaster) {
     console.log('listening on *:443');
   });
 }
+*/
 
