@@ -17,6 +17,9 @@ RUN apt-get update -qq && apt-get install -qy python python-pip python-dev git
 RUN sudo pip install fig
 RUN fig --version
 
+# Install forever (nodejs cluster monitor & restart)
+RUN sudo npm install -g forever
+
 # Installation:
 # Import MongoDB public GPG key AND create a MongoDB list file
 ###RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
