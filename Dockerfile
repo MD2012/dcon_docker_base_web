@@ -20,6 +20,9 @@ RUN fig --version
 # Install forever (nodejs cluster monitor & restart)
 RUN sudo npm install -g forever
 
+# Install NGINX
+RUN apt-get install nginx
+
 # Installation:
 # Import MongoDB public GPG key AND create a MongoDB list file
 ###RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
