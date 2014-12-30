@@ -23,9 +23,13 @@ RUN sudo npm install -g forever
 # Install NGINX
 RUN apt-get update
 RUN apt-get -y install nginx
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+# Replace the default configuration
+RUN rm -v /etc/nginx/nginx.conf
+ADD nginx.conf /etc/nginx/nginx.conf
+#RUN nano /etc/nginx/nginx.conf
+#RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN mkdir /etc/nginx/ssl
-ADD default /etc/nginx/sites-available/default
+#ADD default /etc/nginx/sites-available/default
 
 # Installation:
 # Import MongoDB public GPG key AND create a MongoDB list file
