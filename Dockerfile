@@ -64,7 +64,7 @@ RUN cd /src; npm install
 EXPOSE  8080 27017
 
 CMD ["node", "/src/index.js"]
-CMD ["nginx"]
+CMD ["nginx", "-g", "daemon off;"]
 
 #RUN sudo docker run --name dcon -p 49160:8080 -p 27017 -d md2012/dcon-base-web
 
