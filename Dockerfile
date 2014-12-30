@@ -21,7 +21,11 @@ RUN fig --version
 RUN sudo npm install -g forever
 
 # Install NGINX
-RUN apt-get install nginx
+RUN apt-get update
+RUN apt-get -y install nginx
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+RUN mkdir /etc/nginx/ssl
+ADD default /etc/nginx/sites-available/default
 
 # Installation:
 # Import MongoDB public GPG key AND create a MongoDB list file
@@ -55,7 +59,7 @@ RUN cd /src; npm install
 # expose node server and mongo ports to host
 EXPOSE  8080 27017
 
-CMD ["node", "/src/index.js"]
+CMD ["node", "/src/index.js", "nginx"]
 
 #RUN sudo docker run --name dcon -p 49160:8080 -p 27017 -d md2012/dcon-base-web
 
