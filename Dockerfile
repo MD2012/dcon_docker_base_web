@@ -67,7 +67,6 @@ EXPOSE 443
 CMD ["node", "/src/index.js"]
 #CMD ["nginx", "-g", "daemon off;"]
 
-
 #RUN sudo docker run --name dcon -p 443:443 -d md2012/dcon-base-web
 
 #RUN pwd
