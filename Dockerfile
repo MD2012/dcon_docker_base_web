@@ -61,7 +61,7 @@ COPY . /src
 RUN cd /src; npm install
 
 # expose node server and mongo ports to host
-EXPOSE  443
+EXPOSE 443
 
 #CMD service nginx start
 CMD ["node", "/src/index.js"]
