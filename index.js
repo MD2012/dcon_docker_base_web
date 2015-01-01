@@ -30,9 +30,7 @@ if (cluster.isMaster) {
   });
 
   io.on('connection', function(socket){
-    socket.on('connect', function() {
-       io.emit('chat message', 'Another user has connected.');
-    });
+    io.emit('chat message', 'Another user has connected.');
     socket.on('chat message', function(msg){
       io.emit('chat message', msg+ ' (served by:'+cluster.worker.id+')');
     });
