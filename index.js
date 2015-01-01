@@ -11,7 +11,7 @@ var http = require('http').Server(app);
 // startssl.com
 // https://shaaaaaaaaaaaaa.com/
 
-//var io = require('socket.io')(http);
+var io = require('socket.io')(http);
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
@@ -21,7 +21,7 @@ http.listen(app.get('port'), function(){
   console.log('listening on *:443');
 });
 
-/*
+
 if (cluster.isMaster) {
   // Fork workers.
   for (var i = 0; i < numCPUs; i++) {
@@ -60,5 +60,5 @@ if (cluster.isMaster) {
     console.log('listening on *:443');
   });
 }
-*/
+
 
