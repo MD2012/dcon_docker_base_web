@@ -1,6 +1,8 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
 
+var userId = 1;
+
 if (cluster.isMaster) {
   // Fork workers.
   for (var i = 0; i < numCPUs; i++) {
@@ -30,9 +32,11 @@ if (cluster.isMaster) {
   });
 
   io.on('connection', function(socket){
+    var nick = 'Guest'+userId++;
+    socket.set('nickname', nick);
     socket.broadcast.emit('chat message', 'Another user has connected.');
     socket.on('chat message', function(msg){
-      io.emit('chat message', msg+ ' (served by:'+cluster.worker.id+')');
+      io.emit('chat message', nick+': '+msg+ ' (served by:'+cluster.worker.id+')');
     });
   });
 
