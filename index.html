@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>Socket.IO chat</title>
+  <title>KIMUNDO Socket.io</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font: 13px Helvetica, Arial; }
@@ -23,7 +23,8 @@
 <script>
   var socket = io();
   $('form').submit(function(){
-    socket.emit('chat message', $('#m').val());
+    var v = $('#m').val();
+    io.sockets.emit('chat message', v);
     $('#m').val('');
     return false;
   });
