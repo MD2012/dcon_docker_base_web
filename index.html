@@ -22,9 +22,8 @@
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
   var socket = io();
-  $('form').submit(function(){
-    var v = $('#m').val();
-    io.sockets.emit('chat message', v);
+  $('form').submit(function() {
+    socket.emit('chat message', $('#m').val());
     $('#m').val('');
     return false;
   });
