@@ -97,6 +97,8 @@ if (cluster.isMaster) {
   });
 
   http.listen(app.get('port'), function(){
+    console.log('Clusterable nodejs socketio chat app');
+    console.log('numCPUs: '+numCPUs)
     console.log('listening on *:443');
   });
 }
