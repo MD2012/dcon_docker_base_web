@@ -20,7 +20,7 @@ RUN apt-get update -qq && apt-get install -qy python python-pip python-dev git
 # Install app dependencies
 RUN rm -rf node_modules
 RUN npm cache clean
-RUN apt-get gcc make build-essential
+RUN apt-get install gcc make build-essential
 RUN sudo npm install -g node-gyp
 RUN sudo node-gyp rebuild
 RUN sudo npm install -g bson
