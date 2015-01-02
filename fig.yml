@@ -1,5 +1,5 @@
 kimweb:
-  build: . --no-cache
+  build: .
   ports:
     - "443:443"
   links:
