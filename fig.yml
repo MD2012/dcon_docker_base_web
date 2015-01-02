@@ -1,11 +1,11 @@
-kimweb:
+web:
   image: md2012/dcon-base-web
   ports:
     - "443:443"
   links:
-    - kimdb
+    - db
 
-kimdb:
+db:
   image: mongo:2.6
   ports:
     - "27017:27017"
