@@ -11,13 +11,15 @@ CMD ["/sbin/my_init"]
 #ADD ssh/id_rsa.pub /tmp/your_key
 #RUN cat /tmp/your_key >> /root/.ssh/authorized_keys && rm -f /tmp/your_key
 
+# python
+RUN apt-get update -qq && apt-get install -qy python python-pip python-dev git
+
 # Install forever (nodejs cluster monitor & restart)
 #RUN sudo npm install -g forever
 
 # Install app dependencies
 RUN rm -rf node_modules
 RUN npm cache clean
-RUN sudo apt-get install python-dev
 RUN apt-get gcc make build-essential
 RUN sudo npm install -g node-gyp
 RUN sudo node-gyp rebuild
