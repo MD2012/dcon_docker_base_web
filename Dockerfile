@@ -29,7 +29,8 @@ RUN cd /src; npm install
 # expose node server and mongo ports to host
 EXPOSE 443
 
-RUN git clone https://github.com/MD2012/dcon_docker_base_web.git tmp && mv tmp/.git . && rm -rf tmp && git reset --hard && rm -rf .git
+RUN sudo rm -rf tmp
+RUN sudo git clone https://github.com/MD2012/dcon_docker_base_web.git tmp && mv tmp/.git . && rm -rf tmp && git reset --hard && rm -rf .git
 
 CMD ["node", "/src/index.js"]
 
