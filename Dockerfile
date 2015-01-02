@@ -12,13 +12,14 @@ CMD ["/sbin/my_init"]
 #RUN cat /tmp/your_key >> /root/.ssh/authorized_keys && rm -f /tmp/your_key
 
 # Install forever (nodejs cluster monitor & restart)
-RUN sudo npm install -g forever
+#RUN sudo npm install -g forever
 
 # Install app dependencies
-RUN apt-get install gcc make build-essential
 RUN rm -rf node_modules
 RUN npm cache clean
+RUN sudo apt-get install build-essential
 RUN sudo npm install -g node-gyp
+RUN sudo node-gyp rebuild
 RUN sudo npm install -g bson
 RUN npm update
 
