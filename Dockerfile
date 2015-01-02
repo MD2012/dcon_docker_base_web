@@ -22,6 +22,7 @@ RUN sudo npm install -g node-gyp
 #RUN npm update
 
 # Setup app
+RUN cd root
 RUN pwd
 RUN ls
 COPY . /src
