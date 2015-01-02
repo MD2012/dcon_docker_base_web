@@ -19,6 +19,7 @@ RUN apt-get install gcc make build-essential
 RUN rm -rf node_modules
 RUN npm cache clean
 RUN sudo npm install -g node-gyp
+RUN sudo npm install -g bson
 RUN npm update
 
 # Setup app
