@@ -18,6 +18,9 @@ RUN sudo npm install -g forever
 COPY . /src
 
 # Install app dependencies
+RUN apt-get install gcc make build-essential
+RUN rm -rf node_modules
+RUN npm cache clean
 RUN cd /src; npm install
 
 # expose node server and mongo ports to host
