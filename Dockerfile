@@ -22,12 +22,8 @@ RUN sudo npm install -g node-gyp
 #RUN npm update
 
 # Setup app
-RUN cd root
-RUN pwd
-RUN ls
 COPY . /src
-RUN cd /src
-RUN npm install
+RUN cd /src; npm install
 
 # expose node server and mongo ports to host
 EXPOSE 443
