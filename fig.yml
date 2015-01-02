@@ -7,3 +7,4 @@ kimweb:
 
 kimdb:
   image: mongo:2.6
+  ports: "27017:27017"
