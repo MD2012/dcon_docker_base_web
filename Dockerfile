@@ -20,40 +20,6 @@ RUN fig --version
 # Install forever (nodejs cluster monitor & restart)
 RUN sudo npm install -g forever
 
-# Install NGINX
-#RUN apt-get update
-#RUN apt-get -y install nginx
-# Replace the default configuration
-#RUN rm -v /etc/nginx/nginx.conf
-#ADD nginx.conf /etc/nginx/nginx.conf
-#RUN nano /etc/nginx/nginx.conf
-#RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-#RUN mkdir /etc/nginx/ssl
-#ADD default /etc/nginx/sites-available/default
-
-# Installation:
-# Import MongoDB public GPG key AND create a MongoDB list file
-###RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-###RUN echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/10gen.list
-
-# Update apt-get sources AND install MongoDB
-##RUN apt-get update && apt-get install -y mongodb-org
-
-# Create the MongoDB data directory
-##RUN mkdir -p /data/db
-
-# Set usr/bin/mongod as the dockerized entry-point application
-### ENTRYPOINT usr/bin/mongod
-
-# install meteor
-#RUN curl https://install.meteor.com | /bin/sh
-
-# Remove the default site
-#RUN rm /etc/nginx/sites-enabled/default
-
-# Enable nginx
-#RUN rm -f /etc/service/nginx/down
-
 # Setup app
 COPY . /src
 
@@ -63,11 +29,9 @@ RUN cd /src; npm install
 # expose node server and mongo ports to host
 EXPOSE 443
 
-#CMD service nginx start
-CMD ["node", "/src/index.js"]
-#CMD ["nginx", "-g", "daemon off;"]
+RUN git clone https://github.com/MD2012/dcon_docker_base_web.git tmp && mv tmp/.git . && rm -rf tmp && git reset --hard && rm -rf .git
 
-#RUN sudo docker run --name dcon -p 443:443 -d md2012/dcon-base-web
+CMD ["node", "/src/index.js"]
 
 #RUN pwd
 #COPY fig.yml /fig.yml
