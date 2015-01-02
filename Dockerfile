@@ -21,7 +21,14 @@ COPY . /src
 RUN apt-get install gcc make build-essential
 RUN rm -rf node_modules
 RUN npm cache clean
-RUN cd /src; npm install
+
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+RUN npm install node-gyp
+RUN cd node_modules/mongodb/node_modules/bson
+RUN node-gyp rebuild
+
+RUN cd /src
+RUN npm install
 
 # expose node server and mongo ports to host
 EXPOSE 443
