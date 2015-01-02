@@ -15,11 +15,11 @@ CMD ["/sbin/my_init"]
 RUN sudo npm install -g forever
 
 # Install app dependencies
-#RUN apt-get install gcc make build-essential
-#RUN rm -rf node_modules
-#RUN npm cache clean
+RUN apt-get install gcc make build-essential
+RUN rm -rf node_modules
+RUN npm cache clean
 RUN sudo npm install -g node-gyp
-#RUN npm update
+RUN npm update
 
 # Setup app
 COPY . /src
