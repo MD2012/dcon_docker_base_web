@@ -212,6 +212,13 @@
       }
       log(message);
     }
+    function addExistingMsgs(data) {
+      if(data.msgs!=null) {
+          for(m in data.msgs) {
+            log(m);
+          }
+      }
+    }
 
     // Sets the client's username
     function setUsername () {
@@ -412,6 +419,7 @@
         prepend: true
       });
       addParticipantsMessage(data);
+      addExistingMsgs(data);
     });
 
     // Whenever the server emits 'new message', update the chat body

@@ -13,6 +13,13 @@ var insertMsg = function(db, msg, callback) {
   });
 }
 
+var getMsgs = function(db) {
+  var col = db.collection('messages');
+  col.find().limit(10).toArray(function(err, docs) {
+     return docs;
+  })
+}
+
 // Use connect method to connect to the Server
 MongoClient.connect(url, function(err, db) {
   if(err) throw err;
@@ -77,7 +84,8 @@ MongoClient.connect(url, function(err, db) {
         ++numUsers;
         addedUser = true;
         socket.emit('login', {
-          numUsers: numUsers
+          numUsers: numUsers,
+          msgs: getMsgs(db)
         });
         // echo globally (all clients) that a person has connected
         socket.broadcast.emit('user joined', {
