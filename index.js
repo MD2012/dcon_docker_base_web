@@ -41,6 +41,7 @@ if (cluster.isMaster) {
     // when the client emits 'new message', this listens and executes
     socket.on('new message', function (data) {
       // we tell the client to execute 'new message'
+      console.log(socket.username+':'+data);
       socket.broadcast.emit('new message', {
         username: socket.username,
         message: data
