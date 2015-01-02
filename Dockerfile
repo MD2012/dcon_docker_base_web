@@ -22,6 +22,7 @@ RUN npm install -g node-gyp
 RUN npm update
 
 # Setup app
+RUN pwd
 COPY . /src
 RUN cd /src
 RUN npm install
