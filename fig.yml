@@ -1,5 +1,5 @@
 kimweb:
-  image: md2012/dcon-base-web
+  image: .
   ports:
     - "443:443"
   links:
