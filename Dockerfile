@@ -15,19 +15,17 @@ CMD ["/sbin/my_init"]
 RUN sudo npm install -g forever
 
 # Install app dependencies
-RUN apt-get install gcc make build-essential
-RUN rm -rf node_modules
-RUN npm cache clean
-RUN npm install -g node-gyp
-RUN npm update
+#RUN apt-get install gcc make build-essential
+#RUN rm -rf node_modules
+#RUN npm cache clean
+RUN sudo npm install -g node-gyp
+#RUN npm update
 
 # Setup app
 RUN pwd
-RUN cd root
+RUN ls
 COPY . /src
 RUN cd /src
-RUN pwd
-RUN ls
 RUN npm install
 
 # expose node server and mongo ports to host
