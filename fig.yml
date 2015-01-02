@@ -1,9 +1,9 @@
-kim-web:
+kimweb:
   build: .
   ports:
     - "443:443"
   links:
     - kim-db
 
-kim-db:
+kimdb:
   image: mongo:2.6
