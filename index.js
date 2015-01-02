@@ -3,6 +3,7 @@ var numCPUs = require('os').cpus().length;
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 
+/*
 // Connection URL
 var url = 'mongodb://localhost:27017/kim_base';
 
@@ -20,11 +21,12 @@ var getMsgs = function(db) {
   })
 }
 
+
 // Use connect method to connect to the Server
 MongoClient.connect(url, function(err, db) {
   if(err) return;
   console.log("Connected correctly to server");
-
+ */
 
   // usernames which are currently connected to the chat
   var usernames = {};
@@ -70,9 +72,9 @@ MongoClient.connect(url, function(err, db) {
           username: socket.username,
           message: data
         };
-        insertMsg(db, msg, function() {
+        //insertMsg(db, msg, function() {
           socket.broadcast.emit('new message', msg);
-        });
+        //});
       });
 
       // when the client emits 'add user', this listens and executes
@@ -131,4 +133,4 @@ MongoClient.connect(url, function(err, db) {
     });
   }
 
-});
+//});
