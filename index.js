@@ -56,7 +56,7 @@ MongoClient.connect(url, function(err, db) {
     var io = require('socket.io')(http);
 
     app.get('/', function(req, res){
-      res.sendFile(__dirname + '/index.html');
+      res.sendFile(__dirname + '/index.html?'+new Date().getTime());
     });
 
     io.on('connection', function (socket) {
