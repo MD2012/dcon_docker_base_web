@@ -14,9 +14,6 @@ CMD ["/sbin/my_init"]
 # Install forever (nodejs cluster monitor & restart)
 RUN sudo npm install -g forever
 
-# Setup app
-COPY . /src
-
 # Install app dependencies
 RUN apt-get install gcc make build-essential
 RUN rm -rf node_modules
@@ -24,7 +21,8 @@ RUN npm cache clean
 RUN npm install -g node-gyp
 RUN npm update
 
-
+# Setup app
+COPY . /src
 RUN cd /src
 RUN npm install
 
