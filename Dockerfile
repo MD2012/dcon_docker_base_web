@@ -23,6 +23,7 @@ RUN npm update
 
 # Setup app
 RUN pwd
+RUN cd root
 COPY . /src
 RUN cd /src
 RUN pwd
