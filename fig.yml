@@ -3,7 +3,7 @@ kimweb:
   ports:
     - "443:443"
   links:
-    - kim-db
+    - kimdb
 
 kimdb:
   image: mongo:2.6
