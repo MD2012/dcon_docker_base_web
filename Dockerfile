@@ -25,6 +25,8 @@ RUN npm update
 RUN pwd
 COPY . /src
 RUN cd /src
+RUN pwd
+RUN ls
 RUN npm install
 
 # expose node server and mongo ports to host
