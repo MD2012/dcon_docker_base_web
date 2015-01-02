@@ -21,11 +21,9 @@ COPY . /src
 RUN apt-get install gcc make build-essential
 RUN rm -rf node_modules
 RUN npm cache clean
+RUN npm install -g node-gyp
+RUN npm update
 
-#RUN ln -s /usr/bin/nodejs /usr/bin/node
-RUN npm install node-gyp
-#RUN cd /node_modules/bson
-RUN node-gyp rebuild
 
 RUN cd /src
 RUN npm install
