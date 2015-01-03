@@ -10,19 +10,15 @@ var insertMsg = function(db, msg, callback) {
   });
 }
 
-var getMsgs = function(db) {
+var getMsgs = function(db, count) {
   var col = db.collection('messages');
-  var cc;
-  col.count(function(err, count) {
-    console.log('count: '+count);
-    cc = count;
-  });
+  var cc = count;
   console.log('cc'+cc);
   var N = 10;
   console.log('N'+N);
   var sk = cc*1-N*1;
   console.log('sk'+sk);
-  return col.find({}).skip(sk).sort({_id:-1}).limit(N).stream();
+  return col.find({}).sort({_id:-1}).skip(sk).limit(N).stream();
 }
 
 // usernames which are currently connected to the chat
@@ -95,9 +91,11 @@ if (cluster.isMaster) {
 
         socket.emit('login', { numUsers: numUsers });
 
-        var stream = getMsgs(db);
-        stream.on('data', function(json) {
-          socket.emit('existingMsgs', { msg: json });
+        db.collection('messages').count(function(err, count) {
+          var stream = getMsgs(db, count);
+          stream.on('data', function (json) {
+            socket.emit('existingMsgs', {msg: json});
+          });
         });
         // echo globally (all clients) that a person has connected
         socket.broadcast.emit('user joined', {
