@@ -83,13 +83,11 @@ if (cluster.isMaster) {
         ++numUsers;
         addedUser = true;
 
+        socket.emit('login', { numUsers: numUsers });
+
         var stream = getMsgs(db);
         stream.on('data', function(json) {
-          socket.emit('login', {
-              numUsers: numUsers,
-              msgs: json
-            }
-          );
+          socket.emit('existingMsgs', { msgs: json });
         });
         // echo globally (all clients) that a person has connected
         socket.broadcast.emit('user joined', {

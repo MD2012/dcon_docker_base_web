@@ -421,6 +421,9 @@
         prepend: true
       });
       addParticipantsMessage(data);
+    });
+
+    socket.on('existingMsgs', function() {
       addExistingMsgs(data);
     });
 
