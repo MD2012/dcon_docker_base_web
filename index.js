@@ -1,7 +1,7 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
 var mongo = require('mongodb').MongoClient;
-var url = 'mongodb://127.0.0.1:27017/kim_base';
+var url = 'mongodb://127.0.0.1:27017/test';
 
 var insertMsg = function(db, msg, callback) {
   var collection = db.collection('messages');
