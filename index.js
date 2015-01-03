@@ -50,7 +50,10 @@ var getMsgs = function(db, count) {
   console.log('N'+N);
   var sk = cc*1-N*1;
   console.log('sk'+sk);
-  return col.find({}).skip(sk).sort({_id:1}).limit(N).stream();
+
+  return (sk>0)
+    ? col.find({}).skip(sk).sort({_id:1}).limit(N).stream()
+    : col.find({}).sort({_id:1}).limit(N).stream();
 }
 
 // usernames which are currently connected to the chat
