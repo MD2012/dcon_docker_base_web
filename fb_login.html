@@ -158,9 +158,34 @@
   </style>
 </head>
 <body>
+
+
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
+
+<ul class="pages">
+  <li class="chat page">
+    <div class="chatArea">
+      <ul class="messages"></ul>
+    </div>
+    <input class="inputMessage" placeholder="Type here..."/>
+  </li>
+  <li class="login page">
+    <div class="form">
+      <h3 class="title">What's your nickname?</h3>
+      <input class="usernameInput" type="text" maxlength="14" />
+    </div>
+  </li>
+</ul>
+
+
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
+  $(function() {
     // This is called with the results from from FB.getLoginStatus().
     function statusChangeCallback(response) {
       console.log('statusChangeCallback');
@@ -188,18 +213,18 @@
     // Button.  See the onlogin handler attached to it in the sample
     // code below.
     function checkLoginState() {
-      FB.getLoginStatus(function(response) {
+      FB.getLoginStatus(function (response) {
         statusChangeCallback(response);
       });
     }
 
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
       FB.init({
-        appId      : '581303238680707',
-        cookie     : true,  // enable cookies to allow the server to access
-                            // the session
-        xfbml      : true,  // parse social plugins on this page
-        version    : 'v2.1' // use version 2.1
+        appId: '581303238680707',
+        cookie: true,  // enable cookies to allow the server to access
+                       // the session
+        xfbml: true,  // parse social plugins on this page
+        version: 'v2.1' // use version 2.1
       });
 
       // Now that we've initialized the JavaScript SDK, we call
@@ -214,17 +239,18 @@
       //
       // These three cases are handled in the callback function.
 
-      FB.getLoginStatus(function(response) {
+      FB.getLoginStatus(function (response) {
         statusChangeCallback(response);
       });
 
     };
 
     // Load the SDK asynchronously
-    (function(d, s, id) {
+    (function (d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
+      js = d.createElement(s);
+      js.id = id;
       js.src = "//connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
@@ -233,11 +259,11 @@
     // successful.  See statusChangeCallback() for when this call is made.
     function testAPI() {
       console.log('Welcome!  Fetching your information.... ');
-      FB.api('/me', function(response) {
+      FB.api('/me', function (response) {
 
         console.log('Successful login for: ' + response.name);
         document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-        setFbUsername( response.name );
+        setFbUsername(response.name);
 
 
         var FADE_TIME = 150; // ms
@@ -266,7 +292,7 @@
 
         var socket = io();
 
-        function addParticipantsMessage (data) {
+        function addParticipantsMessage(data) {
           var message = '';
           if (data.numUsers === 1) {
             message += "there's 1 participant";
@@ -275,12 +301,13 @@
           }
           log(message);
         }
+
         function addExistingMsgs(data) {
           addChatMessage(data.msg);
         }
 
         // Sets the client's username
-        function setUsername () {
+        function setUsername() {
           username = cleanInput($usernameInput.val().trim());
 
           // If the username is valid
@@ -294,7 +321,8 @@
             socket.emit('add user', username);
           }
         }
-        function setFbUsername ( fb_user ) {
+
+        function setFbUsername(fb_user) {
 
           // If the username is valid
           if (fb_user) {
@@ -309,7 +337,7 @@
         }
 
         // Sends a chat message
-        function sendMessage () {
+        function sendMessage() {
           var message = $inputMessage.val();
           // Prevent markup from being injected into the message
           message = cleanInput(message);
@@ -326,13 +354,13 @@
         }
 
         // Log a message
-        function log (message, options) {
+        function log(message, options) {
           var $el = $('<li>').addClass('log').text(message);
           addMessageElement($el, options);
         }
 
         // Adds the visual chat message to the message list
-        function addChatMessage (data, options) {
+        function addChatMessage(data, options) {
           // Don't fade the message in if there is an 'X was typing'
           var $typingMessages = getTypingMessages(data);
           options = options || {};
@@ -357,14 +385,14 @@
         }
 
         // Adds the visual chat typing message
-        function addChatTyping (data) {
+        function addChatTyping(data) {
           data.typing = true;
           data.message = 'is typing';
           addChatMessage(data);
         }
 
         // Removes the visual chat typing message
-        function removeChatTyping (data) {
+        function removeChatTyping(data) {
           getTypingMessages(data).fadeOut(function () {
             $(this).remove();
           });
@@ -375,7 +403,7 @@
         // options.fade - If the element should fade-in (default = true)
         // options.prepend - If the element should prepend
         //   all other messages (default = false)
-        function addMessageElement (el, options) {
+        function addMessageElement(el, options) {
           var $el = $(el);
 
           // Setup default options
@@ -402,12 +430,12 @@
         }
 
         // Prevents input from having injected markup
-        function cleanInput (input) {
+        function cleanInput(input) {
           return $('<div/>').text(input).text();
         }
 
         // Updates the typing event
-        function updateTyping () {
+        function updateTyping() {
           if (connected) {
             if (!typing) {
               typing = true;
@@ -427,14 +455,14 @@
         }
 
         // Gets the 'X is typing' messages of a user
-        function getTypingMessages (data) {
+        function getTypingMessages(data) {
           return $('.typing.message').filter(function (i) {
             return $(this).data('username') === data.username;
           });
         }
 
         // Gets the color of a username through our hash function
-        function getUsernameColor (username) {
+        function getUsernameColor(username) {
           console.log(username);
           // Compute hash code
           var hash = 7;
@@ -465,7 +493,7 @@
           }
         });
 
-        $inputMessage.on('input', function() {
+        $inputMessage.on('input', function () {
           updateTyping();
         });
 
@@ -494,7 +522,7 @@
           addParticipantsMessage(data);
         });
 
-        socket.on('existingMsgs', function(data) {
+        socket.on('existingMsgs', function (data) {
           addExistingMsgs(data);
         });
 
@@ -529,28 +557,8 @@
 
       });
     }
+  });
   </script>
-
-  <ul class="pages">
-    <li class="chat page">
-      <div class="chatArea">
-        <ul class="messages"></ul>
-      </div>
-      <input class="inputMessage" placeholder="Type here..."/>
-    </li>
-    <li class="login page">
-      <div class="form">
-        <h3 class="title">What's your nickname?</h3>
-        <input class="usernameInput" type="text" maxlength="14" />
-      </div>
-    </li>
-  </ul>
-
-  <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-  </fb:login-button>
-
-  <div id="status">
-  </div>
 
 </body>
 </html>
