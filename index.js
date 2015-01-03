@@ -133,6 +133,15 @@ if (cluster.isMaster) {
           }
         });
         */
+
+        var msg = {
+          username: socket.username,
+          message: msg.imageData
+        };
+        insertMsg(db, msg, function() {
+          socket.broadcast.emit('new message', msg);
+        });
+
         console.log('#7');
         // I'm sending image back to client just to see and a way of confirmation. You can send whatever.
         socket.emit('user image', msg.imageData);
