@@ -19,43 +19,49 @@ var getMsgs = function(db) {
   */
 }
 
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
+// usernames which are currently connected to the chat
+var usernames = {};
+var numUsers = 0;
 
-  console.log("Connected correctly to server");
+if (cluster.isMaster) {
+  // Fork workers.
+  for (var i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+  cluster.on('exit', function(worker, code, signal) {
+    console.log('worker ' + worker.process.pid + ' died');
+  });
+} else {
 
-  // usernames which are currently connected to the chat
-  var usernames = {};
-  var numUsers = 0;
+  // Workers can share any TCP connection
+  // In this case its a HTTP server
 
-  if (cluster.isMaster) {
-    // Fork workers.
-    for (var i = 0; i < numCPUs; i++) {
-      cluster.fork();
-    }
-    cluster.on('exit', function(worker, code, signal) {
-      console.log('worker ' + worker.process.pid + ' died');
-    });
-  } else {
-    // Workers can share any TCP connection
-    // In this case its a HTTP server
+  var app = require('express')();
+  app.set('port', process.env.PORT || 443);
 
+  var http = require('http').Server(app);
+  // for https proceed with:
+  // https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs
+  // openssl.org
+  // startssl.com
+  // https://shaaaaaaaaaaaaa.com/
 
-    var app = require('express')();
-    app.set('port', process.env.PORT || 443);
+  var io = require('socket.io')(http);
 
-    var http = require('http').Server(app);
-    // for https proceed with:
-    // https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs
-    // openssl.org
-    // startssl.com
-    // https://shaaaaaaaaaaaaa.com/
+  app.get('/', function(req, res){
+    res.sendFile(__dirname + '/index.html');
+  });
 
-    var io = require('socket.io')(http);
+  http.listen(app.get('port'), function(){
+    console.log('Clusterable nodejs socketio chat app');
+    console.log('numCPUs: '+numCPUs)
+    console.log('listening on *:443');
+  });
 
-    app.get('/', function(req, res){
-      res.sendFile(__dirname + '/index.html');
-    });
+  // Use connect method to connect to the Server
+  MongoClient.connect(url, function(err, db) {
+
+    console.log("Connected correctly to server");
 
     io.on('connection', function (socket) {
       var addedUser = false;
@@ -122,11 +128,8 @@ MongoClient.connect(url, function(err, db) {
       });
     });
 
-    http.listen(app.get('port'), function(){
-      console.log('Clusterable nodejs socketio chat app');
-      console.log('numCPUs: '+numCPUs)
-      console.log('listening on *:443');
-    });
-  }
+  });
 
-});
+}
+
+
