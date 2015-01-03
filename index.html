@@ -423,7 +423,7 @@
       addParticipantsMessage(data);
     });
 
-    socket.on('existingMsgs', function() {
+    socket.on('existingMsgs', function(data) {
       addExistingMsgs(data);
     });
 
