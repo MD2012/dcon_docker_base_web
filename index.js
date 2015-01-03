@@ -12,7 +12,8 @@ var insertMsg = function(db, msg, callback) {
 
 var getMsgs = function(db) {
   var col = db.collection('messages');
-  var cc = col.count();
+  var msgStats = db.messages.stats();
+  var cc = msgStats.count;
   console.log('cc'+cc);
   var N = 10;
   console.log('N'+N);
