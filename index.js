@@ -19,12 +19,10 @@ var getMsgs = function(db) {
   */
 }
 
-/*
 // Use connect method to connect to the Server
 MongoClient.connect(url, function(err, db) {
-  if(err) return;
+
   console.log("Connected correctly to server");
-*/
 
   // usernames which are currently connected to the chat
   var usernames = {};
@@ -131,4 +129,4 @@ MongoClient.connect(url, function(err, db) {
     });
   }
 
-//});
+});
