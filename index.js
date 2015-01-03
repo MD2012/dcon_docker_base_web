@@ -125,12 +125,14 @@ if (cluster.isMaster) {
 
         // write/save the image
         // TODO: extract file's extension instead of hard coding it
+        /*
         fs.writeFile(DIR + "/" + msg.imageMetaData + "/" + msg.imageMetaData + ".jpg", base64Data.data, function (err) {
           if (err) {
             console.log('ERROR:: ' + err);
             throw err;
           }
         });
+        */
         console.log('#7');
         // I'm sending image back to client just to see and a way of confirmation. You can send whatever.
         socket.emit('user image', msg.imageData);
