@@ -554,10 +554,9 @@
 
              $loginPage.fadeOut();
              $chatPage.show();
-            /*
-             $loginPage.off('click');
+             //$loginPage.off('click');
              $currentInput = $inputMessage.focus();
-             */
+
             // Tell the server your username
             socket.emit('add user', fb_user);
           }
