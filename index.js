@@ -1,5 +1,24 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
+
+var passport = require('passport')
+  , FacebookStrategy = require('passport-facebook').Strategy;
+
+/*
+passport.use(new FacebookStrategy({
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+    callbackURL: "http://www.example.com/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate(..., function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+  }
+));
+*/
+
 var mongo = require('mongodb').MongoClient;
 var url = 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + ':27017/test';
 
@@ -51,7 +70,7 @@ if (cluster.isMaster) {
   var io = require('socket.io')(http);
 
   app.get('/', function(req, res){
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/fb_login.html');
   });
 
   http.listen(app.get('port'), function(){
@@ -59,6 +78,8 @@ if (cluster.isMaster) {
     console.log('numCPUs: '+numCPUs)
     console.log('listening on *:443');
   });
+
+
 
   mongo.connect(url, function(err, db) {
     if(err!=null) console.log(err);

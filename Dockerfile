@@ -17,6 +17,8 @@ RUN apt-get update -qq && apt-get install -qy python python-pip python-dev git
 # Install forever (nodejs cluster monitor & restart)
 #RUN sudo npm install -g forever
 
+RUN npm install passport
+
 # Install app dependencies
 #RUN rm -rf node_modules
 #RUN npm cache clean
