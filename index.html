@@ -213,6 +213,8 @@
       log(message);
     }
     function addExistingMsgs(data) {
+      console.log('data');
+      console.log(data);
       if(data.msgs!=null) {
           for(m in data.msgs) {
             log(m);
