@@ -1,7 +1,7 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
 var mongo = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/test';
+var url = 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + ':27017/test';
 
 var insertMsg = function(db, msg, callback) {
   var collection = db.collection('messages');
