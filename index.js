@@ -105,6 +105,7 @@ if (cluster.isMaster) {
 
       // image message received...yeah some refactoring is required but have fun with it...
       socket.on('user image', function (msg) {
+        console.log('#5');
         var base64Data = decodeBase64Image(msg.imageData);
         var DIR = '.';
         // if directory is not already created, then create it, otherwise overwrite existing image
@@ -120,6 +121,7 @@ if (cluster.isMaster) {
             });
           }
         })
+        console.log('#6');
 
         // write/save the image
         // TODO: extract file's extension instead of hard coding it
@@ -129,6 +131,7 @@ if (cluster.isMaster) {
             throw err;
           }
         });
+        console.log('#7');
         // I'm sending image back to client just to see and a way of confirmation. You can send whatever.
         socket.emit('user image', msg.imageData);
       });

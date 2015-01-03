@@ -472,21 +472,22 @@
 
     // image related socket
     $('#imageFile').on('change', function(e){
-      var file = e.originalEvent.target.files[0],
-        reader = new FileReader();
+      console.log('#1');
+      var file = e.originalEvent.target.files[0], reader = new FileReader();
+      console.log('#2');
       reader.onload = function(evt){
         $('#imageSelected').attr('src', evt.target.result);
-        //$('#selectedImageConainer').css('display', '');
-        //var phoneNum = $('#phoneNumber').val();
         var jsonObject = {
           'imageData': evt.target.result,
           'imageMetaData': username.trim().replace(/\s/gi,'')+new Date().getTime()
         }
-
+        console.log('#3');
+        console.log(jsonObject);
         // send a custom socket message to server
         socket.emit('user image', jsonObject);
       };
       reader.readAsDataURL(file);
+      console.log('#4');
     });
 
     socket.on('user image', function(m){
