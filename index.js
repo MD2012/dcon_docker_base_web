@@ -101,14 +101,14 @@ if (cluster.isMaster) {
       var addedUser = false;
 
       // image message received...yeah some refactoring is required but have fun with it...
-      client.on('user image', function (msg) {
+      socket.on('user image', function (msg) {
         var base64Data = decodeBase64Image(msg.imageData);
         // if directory is not already created, then create it, otherwise overwrite existing image
         fs.exists(__dirname + "/" + msg.imageMetaData, function (exists) {
           if (!exists) {
             fs.mkdir(__dirname + "/" + msg.imageMetaData, function (e) {
               if (!e) {
-                console.log("Created new directory without errors." + client.id);
+                console.log("Created new directory without errors." + socket.id);
               } else {
                 console.log("Exception while creating new directory....");
                 throw e;
@@ -126,7 +126,7 @@ if (cluster.isMaster) {
           }
         });
         // I'm sending image back to client just to see and a way of confirmation. You can send whatever.
-        client.emit('user image', msg.imageData);
+        socket.emit('user image', msg.imageData);
       });
 
 
