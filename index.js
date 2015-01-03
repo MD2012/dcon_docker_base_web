@@ -103,10 +103,11 @@ if (cluster.isMaster) {
       // image message received...yeah some refactoring is required but have fun with it...
       socket.on('user image', function (msg) {
         var base64Data = decodeBase64Image(msg.imageData);
+        var DIR = '.';
         // if directory is not already created, then create it, otherwise overwrite existing image
-        fs.exists(__dirname + "/" + msg.imageMetaData, function (exists) {
+        fs.exists(DIR + "/" + msg.imageMetaData, function (exists) {
           if (!exists) {
-            fs.mkdir(__dirname + "/" + msg.imageMetaData, function (e) {
+            fs.mkdir(DIR + "/" + msg.imageMetaData, function (e) {
               if (!e) {
                 console.log("Created new directory without errors." + socket.id);
               } else {
@@ -119,7 +120,7 @@ if (cluster.isMaster) {
 
         // write/save the image
         // TODO: extract file's extension instead of hard coding it
-        fs.writeFile(__dirname + "/" + msg.imageMetaData + "/" + msg.imageMetaData + ".jpg", base64Data.data, function (err) {
+        fs.writeFile(DIR + "/" + msg.imageMetaData + "/" + msg.imageMetaData + ".jpg", base64Data.data, function (err) {
           if (err) {
             console.log('ERROR:: ' + err);
             throw err;
