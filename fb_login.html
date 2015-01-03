@@ -491,6 +491,7 @@
 
     socket.on('user image', function(m){
 //    $('#imageReceivedMessage').text("> "+m);
+      console.log('m: '+m);
       $('#imageSentFromServer').attr('src', m);
     });
 
