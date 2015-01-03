@@ -353,6 +353,23 @@
       addMessageElement($el, options);
     }
 
+    function addImgMessage(img) {
+      var $usernameDiv = $('<span class="username"/>')
+        .text(data.username)
+        .css('color', getUsernameColor(data.username));
+      var $messageBodyDiv = $('<span class="messageBody"><img src="'+img+'"')
+
+      var typingClass = data.typing ? 'typing' : '';
+      var $messageDiv = $('<li class="message"/>')
+        .data('username', data.username)
+        .addClass(typingClass)
+        .append($usernameDiv, $messageBodyDiv);
+
+      addMessageElement($messageDiv, options);
+
+      //$('#imageSentFromServer').attr('src', m);
+    }
+
     // Adds the visual chat message to the message list
     function addChatMessage(data, options) {
       // Don't fade the message in if there is an 'X was typing'
@@ -526,9 +543,7 @@
     });
 
     socket.on('user image', function(m){
-//    $('#imageReceivedMessage').text("> "+m);
-      console.log('m: '+m);
-      $('#imageSentFromServer').attr('src', m);
+      addImgMessage(m);
     });
 
 
