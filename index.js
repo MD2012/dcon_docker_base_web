@@ -135,12 +135,12 @@ if (cluster.isMaster) {
         */
 
 
-        var msg = {
+        var _m = {
           username: socket.username,
           message: msg.imageData
         };
-        insertMsg(db, msg, function() {
-          socket.broadcast.emit('new message', msg);
+        insertMsg(db, _m, function() {
+          socket.broadcast.emit('new message', _m);
         });
 
         console.log('#7');
