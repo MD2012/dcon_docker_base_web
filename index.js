@@ -68,9 +68,9 @@ MongoClient.connect(url, function(err, db) {
           username: socket.username,
           message: data
         };
-        //insertMsg(db, msg, function() {
+        insertMsg(db, msg, function() {
           socket.broadcast.emit('new message', msg);
-        //});
+        });
       });
 
       // when the client emits 'add user', this listens and executes
