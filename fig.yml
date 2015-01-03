@@ -7,5 +7,3 @@ web:
 
 db:
   image: mongo:2.8.0
-  ports:
-    - "27017:27017"
