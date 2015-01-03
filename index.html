@@ -214,9 +214,9 @@
     }
     function addExistingMsgs(data) {
       console.log('data');
-      console.log(data);
       if(data.msgs!=null) {
           for(m in data.msgs) {
+            console.log(m);
             addChatMessage(m)
           }
       }
@@ -365,6 +365,7 @@
 
     // Gets the color of a username through our hash function
     function getUsernameColor (username) {
+      console.log(username);
       // Compute hash code
       var hash = 7;
       for (var i = 0; i < username.length; i++) {
