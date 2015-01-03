@@ -237,6 +237,8 @@
 
         console.log('Successful login for: ' + response.name);
         document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+        setFbUsername( response.name );
+
 
         var FADE_TIME = 150; // ms
         var TYPING_TIMER_LENGTH = 400; // ms
@@ -290,6 +292,19 @@
 
             // Tell the server your username
             socket.emit('add user', username);
+          }
+        }
+        function setFbUsername ( fb_user ) {
+
+          // If the username is valid
+          if (fb_user) {
+            $loginPage.fadeOut();
+            $chatPage.show();
+            $loginPage.off('click');
+            $currentInput = $inputMessage.focus();
+
+            // Tell the server your username
+            socket.emit('add user', fb_user);
           }
         }
 
