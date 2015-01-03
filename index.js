@@ -1,8 +1,10 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
+/*
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
-
+*/
+  /*
 // Connection URL
 var url = 'mongodb://localhost:27017/kim_base';
 
@@ -20,12 +22,13 @@ var getMsgs = function(db) {
      return docs;
   })
 }
-*/
+
 
 // Use connect method to connect to the Server
 MongoClient.connect(url, function(err, db) {
   if(err) return;
   console.log("Connected correctly to server");
+*/
 
   // usernames which are currently connected to the chat
   var usernames = {};
@@ -132,4 +135,4 @@ MongoClient.connect(url, function(err, db) {
     });
   }
 
-});
+//});
