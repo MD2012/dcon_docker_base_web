@@ -215,13 +215,8 @@
     function addExistingMsgs(data) {
       console.log('data');
       console.log(data);
-      console.log(data.length);
-      if(data.msgs!=null) {
-          for(m in data.msgs) {
-            console.log(m);
-            addChatMessage(m)
-          }
-      }
+      console.log(data.msgs);
+      addChatMessage(data.msgs);
     }
 
     // Sets the client's username
