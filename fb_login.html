@@ -480,7 +480,7 @@
         //var phoneNum = $('#phoneNumber').val();
         var jsonObject = {
           'imageData': evt.target.result,
-          'imageMetaData': username.trim().replaceAll(/\s/gi,'')+new Date().getTime()
+          'imageMetaData': username.trim().replace(/\s/gi,'')+new Date().getTime()
         }
 
         // send a custom socket message to server
