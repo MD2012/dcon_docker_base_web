@@ -70,6 +70,8 @@ if (cluster.isMaster) {
         message: data
       };
       mongo.connect(url, function(err, db) {
+        console.log(err);
+        console.log(db);
         insertMsg(db, msg, function() {
           socket.broadcast.emit('new message', msg);
         });
