@@ -149,17 +149,31 @@
     }
 
     /* Input */
-
-    .inputMessage {
+    .user_bar {
       border: 10px solid #000;
-      bottom: 0;
-      height: 60px;
-      left: 0;
-      outline: none;
-      padding-left: 10px;
       position: absolute;
+      bottom: 0;
+      left: 0;
       right: 0;
       width: 100%;
+      height: 60px;
+      outline: none;
+    }
+
+    .inputMessage {
+      height: 60px;
+      outline: none;
+      padding-left: 10px;
+      position: relative;
+      float: left;
+      width: 95%;
+    }
+
+    .image-upload {
+      height: 60px;
+      position: relative;
+      float: left;
+      width: 5%;
     }
 
   </style>
@@ -220,18 +234,21 @@
   <ul class="pages">
     <li class="chat page">
       <div class="chatArea">
-        <div class="image-upload">
-          <label for="file-input">
-            <span class="glyphicon glyphicon-picture"></span>
-          </label>
-          <input id="file-input" type="file"/>
-        </div>
-        <input type="file" id="imageFile" /><br/>
+        <!--<input type="file" id="imageFile" /><br/>-->
         <img src="" id="imageSentFromServer"
              style="max-height: 140px; border-width: 0px;"/><br/>
         <ul class="messages"></ul>
       </div>
-      <input class="inputMessage" placeholder="Type here..."/>
+      <div class="user_bar">
+        <input class="inputMessage" placeholder="Type here..."/>
+
+        <div class="image-upload">
+          <label for="file-input">
+            <span class="glyphicon glyphicon-picture"></span>
+          </label>
+          <input id="imageFile" type="file"/>
+        </div>
+      </div>
     </li>
     <li class="login page">
       <div class="form">
