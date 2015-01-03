@@ -313,7 +313,11 @@
     }
 
     function addExistingMsgs(data) {
-      addChatMessage(data.msg);
+      if(data.msg.indexOf('data:image')!=-1) {
+        addImgMessage(data.msg);
+      } else {
+        addChatMessage
+      }
     }
 
     // Sets the client's username
