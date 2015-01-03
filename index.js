@@ -12,9 +12,7 @@ var insertMsg = function(db, msg, callback) {
 
 var getMsgs = function(db) {
   var col = db.collection('messages');
-  col.find().limit(10).toArray(function(err, docs) {
-     return docs;
-  })
+  return col.find({}).sort({ _id : -1 }).limit(10).stream();
 }
 
 // usernames which are currently connected to the chat
@@ -84,9 +82,14 @@ if (cluster.isMaster) {
         usernames[username] = username;
         ++numUsers;
         addedUser = true;
-        socket.emit('login', {
-          numUsers: numUsers,
-          msgs: getMsgs(db)
+
+        var stream = getMsgs(db);
+        stream.on('data', function(json) {
+          socket.emit('login', {
+              numUsers: numUsers,
+              msgs: json
+            }
+          );
         });
         // echo globally (all clients) that a person has connected
         socket.broadcast.emit('user joined', {
