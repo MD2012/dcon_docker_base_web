@@ -56,11 +56,11 @@ if (cluster.isMaster) {
     console.log('listening on *:443');
   });
 
-  io.on('connection', function (socket) {
-    var addedUser = false;
+  mongo.connect(url, function(err, db) {
+    if(err!=null) console.log(err);
 
-    mongo.connect(url, function(err, db) {
-      if(err!=null) console.log(err);
+    io.on('connection', function (socket) {
+      var addedUser = false;
 
       // when the client emits 'new message', this listens and executes
       socket.on('new message', function (data) {
@@ -123,11 +123,8 @@ if (cluster.isMaster) {
           });
         }
       });
-
     });
-
   });
-
 }
 
 
