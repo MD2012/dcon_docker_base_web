@@ -167,7 +167,7 @@
   </li>
   <li class="login page">
     <div class="form">
-      <h3 class="title">What's your nickname eh?</h3>
+      <h3 class="title">What's your nickname?</h3>
       <input class="usernameInput" type="text" maxlength="14" />
     </div>
   </li>
@@ -177,7 +177,6 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
   $(function() {
-    alert('#1');
     var FADE_TIME = 150; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
     var COLORS = [
@@ -420,7 +419,7 @@
         prepend: true
       });
       addParticipantsMessage(data);
-      addExistingMsgs(data);
+      //addExistingMsgs(data);
     });
 
     // Whenever the server emits 'new message', update the chat body
