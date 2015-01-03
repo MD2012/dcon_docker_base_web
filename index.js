@@ -1,6 +1,6 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
-var MongoClient = require('mongodb').MongoClient;
+var mongo = require('mongodb').MongoClient;
 var url = 'mongodb://localhost:27017/kim_base';
 
 var insertMsg = function(db, msg, callback) {
@@ -22,15 +22,8 @@ var getMsgs = function(db) {
 // usernames which are currently connected to the chat
 var usernames = {};
 var numUsers = 0;
-var mdb = null;
 
 if (cluster.isMaster) {
-
-  // Use connect method to connect to the Server
-  MongoClient.connect(url, function(err, db) {
-    console.log("Connected correctly to server");
-    mdb = db;
-  });
   // Fork workers.
   for (var i = 0; i < numCPUs; i++) {
     cluster.fork();
@@ -76,8 +69,10 @@ if (cluster.isMaster) {
         username: socket.username,
         message: data
       };
-      insertMsg(mdb, msg, function() {
-        socket.broadcast.emit('new message', msg);
+      mongo.connect(url, function(err, db) {
+        insertMsg(db, msg, function() {
+          socket.broadcast.emit('new message', msg);
+        });
       });
     });
 
@@ -128,6 +123,7 @@ if (cluster.isMaster) {
         });
       }
     });
+
   });
 
 }
