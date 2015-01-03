@@ -19,6 +19,7 @@ RUN apt-get update -qq && apt-get install -qy python python-pip python-dev git
 
 RUN npm install passport
 RUN npm install passport-facebook
+RUN npm install fs
 
 # Install app dependencies
 #RUN rm -rf node_modules
