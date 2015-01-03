@@ -12,11 +12,9 @@ var insertMsg = function(db, msg, callback) {
 
 var getMsgs = function(db) {
   var col = db.collection('messages');
-  /*
   col.find().limit(10).toArray(function(err, docs) {
      return docs;
   })
-  */
 }
 
 // usernames which are currently connected to the chat
@@ -70,8 +68,8 @@ if (cluster.isMaster) {
         message: data
       };
       mongo.connect(url, function(err, db) {
-        console.log(err);
-        console.log(db);
+        if(err!=null) console.log(err);
+        //console.log(db);
         insertMsg(db, msg, function() {
           socket.broadcast.emit('new message', msg);
         });
@@ -86,9 +84,11 @@ if (cluster.isMaster) {
       usernames[username] = username;
       ++numUsers;
       addedUser = true;
-      socket.emit('login', {
-        numUsers: numUsers
-        //msgs: getMsgs(db)
+      mongo.connect(url, function(err, db) {
+        socket.emit('login', {
+          numUsers: numUsers,
+          msgs: getMsgs(db)
+        });
       });
       // echo globally (all clients) that a person has connected
       socket.broadcast.emit('user joined', {
