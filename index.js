@@ -1,9 +1,7 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
-/*
-var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
-*/
+var MongoClient = require('mongodb').MongoClient;
+
   /*
 // Connection URL
 var url = 'mongodb://localhost:27017/kim_base';
