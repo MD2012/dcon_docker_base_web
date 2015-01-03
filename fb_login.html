@@ -6,6 +6,10 @@
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <style>
+    .imageSentFromServer {
+      max-height: 140px;
+      border: 0px;
+    }
     .image-upload > input
     {
       display: none;
@@ -239,9 +243,10 @@
   <ul class="pages">
     <li class="chat page">
       <div class="chatArea">
-        <!--<input type="file" id="imageFile" /><br/>-->
-        <img src="" id="imageSentFromServer"
+        <!--<input type="file" id="imageFile" /><br/>
+        <img src="" class="imageSentFromServer"
              style="max-height: 140px; border-width: 0px;"/><br/>
+        -->
         <ul class="messages"></ul>
       </div>
       <div class="user_bar">
@@ -357,7 +362,7 @@
       var $usernameDiv = $('<span class="username"/>')
         .text(username)
         .css('color', getUsernameColor(username));
-      var $messageBodyDiv = $('<span class="messageBody"><img src="'+img+'"')
+      var $messageBodyDiv = $('<span class="messageBody">').append($('<img class="imageSentFromServer" src="'+img+'">'));
 
       var typingClass = '';
       var $messageDiv = $('<li class="message"/>')
