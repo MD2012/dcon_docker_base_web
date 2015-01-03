@@ -213,6 +213,9 @@
   <ul class="pages">
     <li class="chat page">
       <div class="chatArea">
+        Image file: <input type="file" id="imageFile" /><br/>
+        <img src="" id="imageSentFromServer"
+             style="width: 40px; height: 50px; border-width: 0px;"/><br/>
         <ul class="messages"></ul>
       </div>
       <input class="inputMessage" placeholder="Type here..."/>
@@ -466,6 +469,31 @@
     });
 
     // Socket events
+
+    // image related socket
+    $('#imageFile').on('change', function(e){
+      var file = e.originalEvent.target.files[0],
+        reader = new FileReader();
+      reader.onload = function(evt){
+        $('#imageSelected').attr('src', evt.target.result);
+        //$('#selectedImageConainer').css('display', '');
+        //var phoneNum = $('#phoneNumber').val();
+        var jsonObject = {
+          'imageData': evt.target.result,
+          'imageMetaData': username+new Date().getTime()
+        }
+
+        // send a custom socket message to server
+        socket.emit('user image', jsonObject);
+      };
+      reader.readAsDataURL(file);
+    });
+
+    socket.on('user image', function(m){
+//    $('#imageReceivedMessage').text("> "+m);
+      $('#imageSentFromServer').attr('src', m);
+    });
+
 
     // Whenever the server emits 'login', log the login message
     socket.on('login', function (data) {

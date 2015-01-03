@@ -1,5 +1,6 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
+var fs = require('fs');
 
 var passport = require('passport')
   , FacebookStrategy = require('passport-facebook').Strategy;
@@ -27,6 +28,18 @@ var insertMsg = function(db, msg, callback) {
   collection.insert(msg, function(err, result) {
     callback(result);
   });
+}
+
+//TODO: function to decode base64 to binary
+function decodeBase64Image(dataString) {
+  var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+    response = {};
+  if (matches.length !== 3) {
+    return new Error('Invalid input string');
+  }
+  response.type = matches[1];
+  response.data = new Buffer(matches[2], 'base64');
+  return response;
 }
 
 var getMsgs = function(db, count) {
@@ -86,6 +99,36 @@ if (cluster.isMaster) {
 
     io.on('connection', function (socket) {
       var addedUser = false;
+
+      // image message received...yeah some refactoring is required but have fun with it...
+      client.on('user image', function (msg) {
+        var base64Data = decodeBase64Image(msg.imageData);
+        // if directory is not already created, then create it, otherwise overwrite existing image
+        fs.exists(__dirname + "/" + msg.imageMetaData, function (exists) {
+          if (!exists) {
+            fs.mkdir(__dirname + "/" + msg.imageMetaData, function (e) {
+              if (!e) {
+                console.log("Created new directory without errors." + client.id);
+              } else {
+                console.log("Exception while creating new directory....");
+                throw e;
+              }
+            });
+          }
+        })
+
+        // write/save the image
+        // TODO: extract file's extension instead of hard coding it
+        fs.writeFile(__dirname + "/" + msg.imageMetaData + "/" + msg.imageMetaData + ".jpg", base64Data.data, function (err) {
+          if (err) {
+            console.log('ERROR:: ' + err);
+            throw err;
+          }
+        });
+        // I'm sending image back to client just to see and a way of confirmation. You can send whatever.
+        client.emit('user image', msg.imageData);
+      });
+
 
       // when the client emits 'new message', this listens and executes
       socket.on('new message', function (data) {
