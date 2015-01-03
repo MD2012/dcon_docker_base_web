@@ -1,9 +1,6 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
 var MongoClient = require('mongodb').MongoClient;
-
-  /*
-// Connection URL
 var url = 'mongodb://localhost:27017/kim_base';
 
 var insertMsg = function(db, msg, callback) {
@@ -13,15 +10,16 @@ var insertMsg = function(db, msg, callback) {
   });
 }
 
-/*
 var getMsgs = function(db) {
   var col = db.collection('messages');
+  /*
   col.find().limit(10).toArray(function(err, docs) {
      return docs;
   })
+  */
 }
 
-
+/*
 // Use connect method to connect to the Server
 MongoClient.connect(url, function(err, db) {
   if(err) return;
