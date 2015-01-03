@@ -134,6 +134,7 @@ if (cluster.isMaster) {
         });
         */
 
+
         var msg = {
           username: socket.username,
           message: msg.imageData
