@@ -12,12 +12,13 @@ var insertMsg = function(db, msg, callback) {
 
 var getMsgs = function(db) {
   var col = db.collection('messages');
+  var cc = col.count();
+  console.log('cc'+cc);
   var N = 10;
-  return col.find({})
-    .skip(col.count() - N)
-    .sort({ _id : -1 })
-    .limit( N )
-    .stream();
+  console.log('N'+N);
+  var sk = cc*1-N*1;
+  console.log('sk'+sk);
+  return col.find({}).skip(sk).sort({_id:-1}).limit(N).stream();
 }
 
 // usernames which are currently connected to the chat
