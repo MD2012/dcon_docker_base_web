@@ -313,8 +313,6 @@
     }
 
     function addExistingMsgs(data) {
-      console.log('#aa');
-      console.log(data);
       if(data!=null && data.msg!=null && data.msg.message.indexOf('data:image')!=-1) {
         addImgMessage(data.msg.message);
       } else {
@@ -574,7 +572,11 @@
 
     // Whenever the server emits 'new message', update the chat body
     socket.on('new message', function (data) {
-      addChatMessage(data);
+      if(data!=null && data.msg!=null && data.msg.message.indexOf('data:image')!=-1) {
+        addImgMessage(data.message);
+      } else {
+        addChatMessage(data);
+      }
     });
 
     // Whenever the server emits 'user joined', log it in the chat body
