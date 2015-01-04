@@ -572,7 +572,7 @@
 
     // Whenever the server emits 'new message', update the chat body
     socket.on('new message', function (data) {
-      if(data!=null && data.msg!=null && data.msg.message.indexOf('data:image')!=-1) {
+      if(data!=null && data.message!=null && data.message.indexOf('data:image')!=-1) {
         addImgMessage(data.message);
       } else {
         addChatMessage(data);
